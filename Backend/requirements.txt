@@ -1,0 +1,6 @@
+Flask==3.0.2
+gpiozero==2.0.1
+websockets
+gpiozero
+lgpio==0.2.2.0
+pigpio==1.78
