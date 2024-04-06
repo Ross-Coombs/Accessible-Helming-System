@@ -1,0 +1,221 @@
+button {
+    text-align: center;
+    font-size: 5vw;
+    font-weight: bolder;
+    width: 9.5vw;
+    border-radius: 1vw;
+    border: none;
+    margin: 0.25vw;
+    display: inline-block;
+    aspect-ratio: 1/1;
+    padding: 0vw;
+    background-color: lightslategrey;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+button:hover {
+    border: solid;
+    border-width: 10px;
+    border-color: cornflowerblue;
+    background-color: deepskyblue;
+}
+
+.yellowBtn {
+    background-color: gold;
+}
+
+.yellowBtn:hover {
+    background-color: yellow;
+    border-color: gold;
+}
+
+.redBtn {
+    background-color: darkred;
+    color: white;
+}
+
+.redBtn:hover {
+    background-color: crimson;
+    border-color: darkred;
+}
+
+.greenBtn {
+    background-color: forestgreen;
+    color: white;
+}
+
+.greenBtn:hover {
+    background-color: limegreen;
+    border-color: forestgreen;
+}
+
+.textBtn {
+    font-size: 2.5vw;
+    font-weight: lighter;
+}
+
+#Pointer {
+    font-size: 10vw;
+}
+
+body {
+    padding: 0vw;
+    margin: 0vw;
+    border: 0vw;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: aliceblue;
+}
+
+.LeftDiv {
+    padding: 0vw;
+    margin: 0vw;
+    border: 0vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 30vw;
+    left: 0;
+    width: 33vw;
+    height: 40vw;
+}
+
+.MiddleDiv {
+    padding: 0vw;
+    margin: 0vw;
+    border: 0vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 30vw;
+    right: 33vw;
+    width: 34vw;
+    height: 40vw;
+}
+
+.RightDiv {
+    padding: 0vw;
+    margin: 0vw;
+    border: 0vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 30vw;
+    right: 0;
+    width: 33vw;
+    height: 40vw;
+}
+
+.BottomDiv {
+    padding: 0vw;
+    margin: 0vw;
+    border: 0vw;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    background-color: mistyrose;
+}
+
+#Bottom2 {
+    margin-bottom: 10vw;
+}
+
+.BearingDisplay {
+    font-size: 2vw;
+    font-weight: bolder;
+    margin: 0;
+    width: 20vw;
+}
+
+#InputDisplay {
+    font-size: 7vw;
+}
+
+#infoMessage {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: -1vw;
+    font-size: 1.5vw;
+    border-color: red;
+    border-width: 0.25vw;
+    border-style: dashed;
+    width: 20vw;
+    background-color: mistyrose;
+    display: none;
+}
+
+#pointer {
+    opacity: 0.6;
+    display: grid;
+    position: absolute;
+    font-size: 8vw;
+    margin-bottom: 2vw;
+}
+
+#targetPointer {
+    height: 1vw;
+    position: absolute;
+    display: none;
+    align-content: start;
+    justify-content: center;
+    justify-items: center;
+    padding-bottom: 12vw;
+}
+
+#targetPointer i {
+    display: inline-block;
+    font-size: 4vw;
+    color: red;
+}
+
+#compass {
+    width: 10vw;
+    height: 10vw;
+    position: absolute;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    border: 1vw solid blue;
+    border-radius: 50%;
+}
+#compass .compassPoint {
+    height: 1vw;
+    position: absolute;
+    display: grid;
+    align-content: start;
+    justify-content: center;
+    justify-items: center;
+    padding-bottom: 15vw;
+}
+#compass a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 1vw;
+    height: 1vw;
+    margin-top: -1vw;
+    transform: rotate(0deg);
+    font-size: 2vw;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2vw;
+}
+#compass span {
+    display: inline-block;
+    width: 0;
+    margin-top: 1vw;
+    border-width: 0 2vw 8vw 2vw;
+    border-color: transparent transparent #CECECE transparent;
+    border-style: solid;
+}

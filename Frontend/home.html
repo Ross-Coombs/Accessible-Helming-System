@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/3ae11302fe.js" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script>
+    <link rel="stylesheet" href="stylesheet.css">
+    <script src="scripts.js"></script>
+    <title>Helming</title>
+</head>
+<body onload="setupCompass()">
+    <div class="LeftDiv">
+        <p class="BearingDisplay" id="currentHeading">Current: 0°</p>
+    </div>
+    <div class="MiddleDiv">
+        <div id="compass">
+            <div class="compassPoint" id="0"><a>N<br>000</a><span></span></div>
+            <div class="compassPoint" id="1"><a>045</a><span></span></div>
+            <div class="compassPoint" id="2"><a>E<br>090</a><span></span></div>
+            <div class="compassPoint" id="3"><a>135</a><span></span></div>
+            <div class="compassPoint" id="4"><a>S<br>180</a><span></span></div>
+            <div class="compassPoint" id="5"><a>225</a><span></span></div>
+            <div class="compassPoint" id="6"><a>W<br>270</a><span></span></div>
+            <div class="compassPoint" id="7"><a>315</a><span></span></div>
+            <div id="targetPointer"><i class="fa-solid fa-caret-up"></i></div>
+        </div>
+        <i id="pointer" class="fa-solid fa-up-long"></i>
+    </div>
+    <div class="RightDiv">
+        <p class="BearingDisplay" id="targetHeading">Target: 0°</p>
+    </div>
+    <div class="BottomDiv" id="Bottom2">
+        <button onclick="empty()" class="textBtn redBtn">Clear</button>
+        <button onclick="adjust('-')" class="textBtn yellowBtn">Left -5</button>
+        
+        <p class="BearingDisplay" id="InputDisplay">0°</p>
+        <p id="infoMessage"></p>
+        <button onclick="adjust('+')" class="textBtn yellowBtn">Right +5</button>
+        <button onclick="enter()" class="textBtn greenBtn">Start Turn</button>
+    </div>
+    <div class="BottomDiv">
+        <button onclick="input(0)">0</button>
+        <button onclick="input(1)">1</button>
+        <button onclick="input(2)">2</button>
+        <button onclick="input(3)">3</button>
+        <button onclick="input(4)">4</button>
+        <button onclick="input(5)">5</button>
+        <button onclick="input(6)">6</button>
+        <button onclick="input(7)">7</button>
+        <button onclick="input(8)">8</button>
+        <button onclick="input(9)">9</button>
+    </div>
+</body>
+</html>

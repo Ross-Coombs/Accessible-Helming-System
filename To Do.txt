@@ -1,0 +1,11 @@
+!Report
+!Poster
+!Screenreader friendly
+!Switch control
+!Add to github
+!Make project board
+!Connect to boat
+!Test connection works on eduroam/laptop
+!Check colour contrast
+Get eye gaze to work better
+?Rudder angle mode
