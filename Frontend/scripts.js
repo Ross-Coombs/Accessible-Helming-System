@@ -99,7 +99,7 @@ function setupCompass() {
     }
 }
 
-const socket = new WebSocket('ws://raspberrypi:8000');
+const socket = new WebSocket('ws://10.201.89.210:8000');
 socket.addEventListener('open', function (event) {
     socket.send('Connection Established')
 });
