@@ -4,3 +4,5 @@ websockets
 gpiozero
 lgpio==0.2.2.0
 pigpio==1.78
+i2ctools
+sparkfun-pi-servo-hat

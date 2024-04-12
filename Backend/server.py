@@ -1,10 +1,10 @@
 import asyncio
 import websockets
-from gpiozero import AngularServo
+import pi_servo_hat
 from time import sleep
 from websockets.exceptions import ConnectionClosed
 
-servo = AngularServo(18, min_angle=-90, max_angle=90, min_pulse_width=0.00075, max_pulse_width=0.0025)
+servo = pi_servo_hat.PiServoHat()
 targetBearing = 0
 currentBearing = 0
 rudderAngle = 0
@@ -31,6 +31,14 @@ async def receive(websocket, path):
 async def start_server():
     await websockets.serve(receive, "0.0.0.0", 8000)
 
+#Library does not use correct servo pulse width and does not allow changing it. This function adjusts the angle to compensate.
+def adjust_angle_for_library(actual_angle):
+    # Calculate the correct pulse width for the actual angle
+    desired_pulse_width = 0.75 + (actual_angle * (1.75 / 180))
+    # Calculate the equivalent angle for librarys expected range
+    library_angle = (desired_pulse_width - 1) * 180 / 1.0
+    return library_angle
+
 def setAngle(angle):
 	global rudderAngle
 	#ensure input is an int
@@ -48,7 +56,8 @@ def setAngle(angle):
 	#set angle
 	try:
 		rudderAngle = angle
-		servo.angle = angle
+		servo.move_servo_position(0, adjust_angle_for_library(rudderAngle+90), 180)
+		servo.move_servo_position(1, adjust_angle_for_library(rudderAngle+90), 180)
 	except:
 		print("Error turning servo")
 
@@ -61,6 +70,7 @@ def closestToZero(array):
 
 async def main():
 	global currentBearing, active_websocket
+	servo.restart()
 	while True:	
 		#if rudder is angled simulate turning the boat, turn boat faster the greater the rudder angle
 		if rudderAngle > 0:
@@ -86,14 +96,13 @@ async def main():
 			setAngle(0)
 		#if quicker to turn right, turn right
 		elif shorestDist > 0:
-			setAngle(max(shorestDist/2, 10)) #rudder angle is greater, the bigger the turn, with a minimum of 10 degrees
+			setAngle(max(shorestDist, 10)) #rudder angle is greater, the bigger the turn, with a minimum of 10 degrees
 		#if not, turn left
 		else:
-			setAngle(min(shorestDist/2, -10))
+			setAngle(min(shorestDist, -10))
 		await asyncio.sleep(0.5)
 
 		print("Current Bearing: {} | Target Bearing: {} | Rudder Angle: {}".format(currentBearing, targetBearing, rudderAngle))
-
 
 # Run both the websocket server and the main function concurrently
 # Start the event loop and create tasks for both coroutines
