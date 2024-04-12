@@ -1,13 +1,15 @@
 function getBearing(id) {
-    //remove label and degree symbol
     if (id == "InputDisplay") {
+        //remove degree symbol
         return num = document.getElementById(id).innerHTML.slice(0, document.getElementById("InputDisplay").innerHTML.length - 1)
     } else {
+        //remove label and degree symbol
         return num = document.getElementById(id).innerHTML.split(": ", 2)[1].slice(0, document.getElementById("InputDisplay").innerHTML.length - 1)
     }
 }
 
 function returnBearing(id, value) {
+    //add label
     if (id == "InputDisplay") {
         label = ""
     } else if(id == "currentHeading") {
@@ -15,13 +17,16 @@ function returnBearing(id, value) {
     } else {
         label = "Target: "
     }
+    //add degree symbol and update page
     document.getElementById(id).innerHTML = label.concat(value.toString().concat("°"))
 }
 
 function setInfoMessage(message) {
     if (message == "") {
+        //if message is blank, hide error display
         document.getElementById("infoMessage").style.display = "none"
     } else {
+        //display error
         document.getElementById("infoMessage").innerHTML = message
         document.getElementById("infoMessage").style.display = "block"
     }
@@ -60,12 +65,14 @@ function adjust(operator) {
     //plus or minus 5 depending on input
     if(operator == "+") {
         currentInput = parseInt(currentInput)+5
+        //loop 360 to 0
         if(currentInput > 359) {
             currentInput = currentInput - 360
             setInfoMessage("360° loops back to 0°")
         }
     } else if(operator == "-") {
         currentInput = parseInt(currentInput)-5
+        //loop 0 to 360
         if(currentInput < 0) {
             currentInput = currentInput + 360
             setInfoMessage("0° loops back to 360°")
@@ -84,8 +91,10 @@ function empty() {
 }
 
 function enter() {
-    returnBearing("targetHeading", getBearing("InputDisplay"))
+    //send to backend
     socket.send("Target:".concat(getBearing("InputDisplay")))
+    //display new target on label and compass
+    returnBearing("targetHeading", getBearing("InputDisplay"))
     document.getElementById("targetPointer").style.display = "grid"
     document.getElementById("targetPointer").style.transform = "rotate(".concat(getBearing("InputDisplay")).concat("deg)")
     setInfoMessage("")
@@ -99,11 +108,13 @@ function setupCompass() {
     }
 }
 
-const socket = new WebSocket('ws://10.201.89.210:8000');
+//connect to websocket at same address as current window
+const socket = new WebSocket('ws://'.concat(window.location.href.split(":", 2)[0]).concat('.201.89.210:8000');
 socket.addEventListener('open', function (event) {
     socket.send('Connection Established')
 });
 
+//listen for websocket error
 socket.addEventListener('error', function (event) {
     console.error('WebSocket error observed:', event);
     setInfoMessage("Error connecting to boat")
