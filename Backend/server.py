@@ -8,7 +8,7 @@ from websockets.exceptions import ConnectionClosed
 #setup global variables
 servo = pi_servo_hat.PiServoHat()
 targetBearing = 0
-active_websocket = None
+activeWebSocket = None
 
 def setRudderAngle(angle):
 	#ensure input is an int
@@ -30,16 +30,16 @@ def setRudderAngle(angle):
 #this function can be changed to fit output, for example a yacht autopilot tall ship rudder motor, or model boat servo.
 def rudderActuator(angle):
 	#add 90 degrees to angle as servos range is 0 - 180
-	servo.move_servo_position(0, adjust_angle_for_library(angle+90), 180)
-	servo.move_servo_position(1, adjust_angle_for_library(angle+90), 180)
+	servo.move_servo_position(0, adjustAngleForHat(angle+90), 180)
+	servo.move_servo_position(1, adjustAngleForHat(angle+90), 180)
 
 #Library does not use correct servo pulse width and does not allow changing it. This function adjusts the angle to compensate.
-def adjust_angle_for_library(actual_angle):
+def adjustAngleForHat(actualAngle):
     # Calculate the correct pulse width for the actual angle
-    desired_pulse_width = 0.75 + (actual_angle * (1.75 / 180))
+    pulseWidth = 0.75 + (actualAngle * (1.75 / 180))
     # Calculate the equivalent angle for librarys expected range
-    library_angle = (desired_pulse_width - 1) * 180 / 1.0
-    return library_angle
+    newAngle = (pulseWidth - 1) * 180 / 1.0
+    return newAngle
 
 #gets the current bearing the boat is facing
 def getCurrentHeading(currentHeading, rudderAngle):
@@ -65,7 +65,7 @@ def closestToZero(array):
 
 async def main():
 	#setup variables
-	global active_websocket
+	global activeWebSocket
 	rudderAngle = 0
 	currentHeading = 0
 	servo.restart() #restart servo
@@ -87,17 +87,17 @@ async def main():
 			rudderAngle = setRudderAngle(min(shortestDist, -10))
 		#Telemetry
 		# Check if there is an active websocket connection
-		if active_websocket:
+		if activeWebSocket:
 			# Send current bearing to client
-			await active_websocket.send(str("Heading:{}".format(currentHeading)))
+			await activeWebSocket.send(str("Heading:{}".format(currentHeading)))
 		#display all telemetry
 		print("Current Bearing: {} | Target Bearing: {} | Rudder Angle: {}".format(currentHeading, targetBearing, rudderAngle))
 		await asyncio.sleep(0.25) #refresh rate
 
 #setup websocket
 async def receive(websocket, path):
-	global active_websocket
-	active_websocket = websocket
+	global activeWebSocket
+	activeWebSocket = websocket
 	global targetBearing
 	try:
 		async for message in websocket:
@@ -110,7 +110,7 @@ async def receive(websocket, path):
 		print("WebSocket connection closed")
 	finally:
 		#Reset the global variable on disconnection
-		active_websocket = None
+		activeWebSocket = None
 
 #function to start the websocket
 async def startWebSocket():
@@ -118,14 +118,14 @@ async def startWebSocket():
 
 # Run both the websocket server and the main function concurrently
 # Start the event loop and create tasks for both coroutines
-async def run_both():
+async def runBoth():
     # Create a task for the server coroutine
-    server_task = asyncio.create_task(startWebSocket())
+    serverTask = asyncio.create_task(startWebSocket())
     # Run the main function alongside the server
     await asyncio.gather(
-        server_task,
+        serverTask,
         main()
     )
 
-# Start the event loop
-asyncio.run(run_both())
+#Start event loop
+asyncio.run(runBoth())
