@@ -109,7 +109,7 @@ function setupCompass() {
 }
 
 //connect to websocket at same address as current window
-const socket = new WebSocket('ws://'.concat(window.location.href.split(":", 2)[0]).concat('.201.89.210:8000');
+const socket = new WebSocket('ws://'.concat(window.location.href.split(":", 2)[0]).concat('.201.89.210:8000'));
 socket.addEventListener('open', function (event) {
     socket.send('Connection Established')
 });
