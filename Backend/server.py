@@ -90,7 +90,7 @@ async def main():
 			await activeWebSocket.send(str("Heading:{}".format(currentHeading)))
 		#display all telemetry
 		print("Current Bearing: {} | Target Bearing: {} | Rudder Angle: {}".format(currentHeading, targetBearing, rudderAngle))
-		await asyncio.sleep(0.25) #refresh rate
+		await asyncio.sleep(0.2) #refresh rate
 
 #setup websocket
 async def receive(websocket, path):
