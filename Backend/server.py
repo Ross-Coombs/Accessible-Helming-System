@@ -16,13 +16,11 @@ def setRudderAngle(angle):
 		angle = int(angle)
 	except:
 		angle = 0
-		
 	#ensure angle is within acceptable range
 	if(angle > 90):
 		angle = 90
 	elif(angle < -90):
 		angle = -90
-		
 	#set angle
 	rudderActuator(angle)
 	return angle
@@ -45,12 +43,12 @@ def adjustAngleForHat(actualAngle):
 def getCurrentHeading(currentHeading, rudderAngle):
 	#as this version is not attached to a real boat this function also simulates the boat turning, and as such requires rudderAngle and currentHeading
 	#if rudder is angled simulate turning the boat, turn boat faster the greater the rudder angle
-		if rudderAngle > 0:
-			currentHeading += int(rudderAngle/10)
+		if rudderAngle < 0:
+			currentHeading += -int(rudderAngle/10)
 			if currentHeading > 359:
 				currentHeading = currentHeading - 360
-		elif rudderAngle < 0:
-			currentHeading -= -int(rudderAngle/10)
+		elif rudderAngle > 0:
+			currentHeading -= int(rudderAngle/10)
 			if currentHeading < 0:
 				currentHeading = currentHeading + 360
 		return currentHeading
@@ -81,10 +79,10 @@ async def main():
 			rudderAngle = setRudderAngle(0)
 		#if quicker to turn right, turn right
 		elif shortestDist > 0:
-			rudderAngle = setRudderAngle(max(shortestDist, 10)) #rudder angle is greater, the bigger the turn, with a minimum of 10 degrees
+			rudderAngle = setRudderAngle(-max(shortestDist, 10)) #rudder angle is greater, the bigger the turn, with a minimum of 10 degrees
 		#if not, turn left
 		else:
-			rudderAngle = setRudderAngle(min(shortestDist, -10))
+			rudderAngle = setRudderAngle(-min(shortestDist, -10))
 		#Telemetry
 		# Check if there is an active websocket connection
 		if activeWebSocket:
@@ -92,7 +90,7 @@ async def main():
 			await activeWebSocket.send(str("Heading:{}".format(currentHeading)))
 		#display all telemetry
 		print("Current Bearing: {} | Target Bearing: {} | Rudder Angle: {}".format(currentHeading, targetBearing, rudderAngle))
-		await asyncio.sleep(0.25) #refresh rate
+		await asyncio.sleep(0.2) #refresh rate
 
 #setup websocket
 async def receive(websocket, path):

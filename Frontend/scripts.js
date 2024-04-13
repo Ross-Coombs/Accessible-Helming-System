@@ -131,8 +131,8 @@ socket.addEventListener('message', function (event) {
         document.getElementById("compass").style.transform = 'rotate('.concat(-currentHeading).concat('deg)') //turn whole compass
         var compassPoints = document.getElementsByClassName('compassPoint'); //get all compass points
         for(var index=0;index < compassPoints.length;index++){ //loop through all compass points
-            compassPoints[index].style.transform = 'rotate('.concat(45 * compassPoints[index].id).concat('deg)') //spread compass points equally around the circle
-            compassPoints[index].childNodes[0].style.transform = 'rotate('.concat(((-45 * compassPoints[index].id) + currentHeading)).concat('deg)') //unrotate the text to maintain readability
+            //unrotate the text to maintain readability
+            compassPoints[index].childNodes[0].style.transform = 'rotate('.concat(((-45 * compassPoints[index].id) + currentHeading)).concat('deg)')
         }
         //remove target indicator if facing correct way
         if (currentHeading == getBearing("targetHeading")) {
