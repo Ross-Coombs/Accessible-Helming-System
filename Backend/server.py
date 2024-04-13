@@ -16,13 +16,11 @@ def setRudderAngle(angle):
 		angle = int(angle)
 	except:
 		angle = 0
-		
 	#ensure angle is within acceptable range
 	if(angle > 90):
 		angle = 90
 	elif(angle < -90):
 		angle = -90
-		
 	#set angle
 	rudderActuator(angle)
 	return angle
