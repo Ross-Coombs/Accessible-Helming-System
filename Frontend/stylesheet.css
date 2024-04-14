@@ -9,7 +9,7 @@ button {
     display: inline-block;
     aspect-ratio: 1/1;
     padding: 0vw;
-    background-color: lightslategrey;
+    background-color: #8B99A7;
     font-family: 'Courier New', Courier, monospace;
 }
 
@@ -35,7 +35,7 @@ button:hover {
 }
 
 .redBtn:hover {
-    background-color: crimson;
+    background-color: #B11031;
     border-color: darkred;
 }
 
@@ -45,8 +45,9 @@ button:hover {
 }
 
 .greenBtn:hover {
-    background-color: limegreen;
+    background-color: #32cd32;
     border-color: forestgreen;
+    color: black;
 }
 
 .textBtn {
