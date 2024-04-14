@@ -11,9 +11,9 @@
 </head>
 <body onload="setupCompass()">
     <div class="LeftDiv">
-        <p class="BearingDisplay" id="currentHeading">Current: 0°</p>
+        <p aria-live="none" class="BearingDisplay" id="currentHeading">Current: 0°</p>
     </div>
-    <div class="MiddleDiv">
+    <div class="MiddleDiv" aria-hidden="true">
         <div id="compass">
             <div class="compassPoint" id="0"><a>N<br>000</a><span></span></div>
             <div class="compassPoint" id="1"><a>045</a><span></span></div>
@@ -28,28 +28,27 @@
         <i id="pointer" class="fa-solid fa-up-long"></i>
     </div>
     <div class="RightDiv">
-        <p class="BearingDisplay" id="targetHeading">Target: 0°</p>
+        <p aria-live="none" class="BearingDisplay" id="targetHeading">Target: 0°</p>
     </div>
     <div class="BottomDiv" id="Bottom2">
         <button onclick="empty()" class="textBtn redBtn">Clear</button>
         <button onclick="adjust('-')" class="textBtn yellowBtn">Left -5</button>
-        
-        <p class="BearingDisplay" id="InputDisplay">0°</p>
-        <p id="infoMessage"></p>
+        <p aria-live="polite" class="BearingDisplay" id="InputDisplay">0°</p>
+        <p role="alert" tabindex="-1" id="infoMessage"></p>
         <button onclick="adjust('+')" class="textBtn yellowBtn">Right +5</button>
         <button onclick="enter()" class="textBtn greenBtn">Start Turn</button>
     </div>
     <div class="BottomDiv">
-        <button onclick="input(0)">0</button>
-        <button onclick="input(1)">1</button>
-        <button onclick="input(2)">2</button>
-        <button onclick="input(3)">3</button>
-        <button onclick="input(4)">4</button>
-        <button onclick="input(5)">5</button>
-        <button onclick="input(6)">6</button>
-        <button onclick="input(7)">7</button>
-        <button onclick="input(8)">8</button>
-        <button onclick="input(9)">9</button>
+        <button role="button" onclick="input(0)">0</button>
+        <button role="button" onclick="input(1)">1</button>
+        <button role="button" onclick="input(2)">2</button>
+        <button role="button" onclick="input(3)">3</button>
+        <button role="button" onclick="input(4)">4</button>
+        <button role="button" onclick="input(5)">5</button>
+        <button role="button" onclick="input(6)">6</button>
+        <button role="button" onclick="input(7)">7</button>
+        <button role="button" onclick="input(8)">8</button>
+        <button role="button" onclick="input(9)">9</button>
     </div>
 </body>
 </html>
