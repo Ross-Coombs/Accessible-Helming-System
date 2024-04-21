@@ -120,9 +120,9 @@ function countOccurances(str, char) {
 
 //connect to websocket
 ip = window.location.href.split(":", 2)[1] //get ip from address bar (for connecting to interface hosted on the boat)
-//if IP is not in address bar, get IP from user
-if (countOccurances(ip, ".") != 3) {
-    ip = prompt("Please enter WebSocket IP")
+//if IP is not valid, get IP from user
+while (countOccurances(ip, ".") != 3 && ip != "raspberrypi") {
+    ip = prompt("Please enter WebSocket IP:")
 }
 socket = new WebSocket('ws://'.concat(ip).concat(':8000'));
 
