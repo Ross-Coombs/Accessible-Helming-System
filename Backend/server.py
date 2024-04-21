@@ -126,4 +126,5 @@ async def runBoth():
     )
 
 #Start event loop
-asyncio.run(runBoth())
+if __name__ == "__main__":
+	asyncio.run(runBoth())
