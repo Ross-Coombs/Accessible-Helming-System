@@ -109,15 +109,18 @@ function setupCompass() {
 }
 
 //connect to websocket at same address as current window
-const socket = new WebSocket('ws://'.concat(window.location.href.split(":", 2)[1]).concat(':8000'));
-socket.addEventListener('open', function (event) {
-    socket.send('Connection Established')
-});
+socket = new WebSocket('ws://'.concat(window.location.href.split(":", 2)[1]).concat(':8000'));
 
 //listen for websocket error
 socket.addEventListener('error', function (event) {
     console.error('WebSocket error observed:', event);
     setInfoMessage("Error connecting to boat")
+    socket = new WebSocket('ws://'.concat(prompt("test")).concat(':8000'));
+});
+
+socket.addEventListener('open', function (event) {
+    socket.send('Connection Established')
+    setInfoMessage("")
 });
 
 socket.addEventListener('message', function (event) {
